@@ -12,7 +12,7 @@ import {
 import { Ionicons, MaterialIcons } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
-import { RootStackParamList } from '../App';
+import { RootStackParamList } from '../index';
 import { getPredictions, deletePrediction, PredictionRecord } from '../src/api/client';
 import AppBottomNav from '../components/AppBottomNav';
 
@@ -20,7 +20,7 @@ type NavigationProp = NativeStackNavigationProp<RootStackParamList>;
 
 const qualityTagColor = (quality?: string | null) => {
   const q = (quality || '').toLowerCase();
-  if (q.includes('high')) return { bg: '#E8F5E9', text: '#2E7D32' };
+  if (q.includes('high')) return { bg: '#E8F5E9', text: '#D47024' };
   if (q.includes('medium')) return { bg: '#FFF3E0', text: '#B26A00' };
   return { bg: '#FFEBEE', text: '#B23A48' };
 };
@@ -119,7 +119,7 @@ export default function HistoricalTrends() {
 
       <ScrollView contentContainerStyle={styles.content} showsVerticalScrollIndicator={false}>
         <View style={styles.searchBox}>
-          <Ionicons name="search-outline" size={18} color="#757575" />
+          <Ionicons name="search-outline" size={18} color="#8D7B70" />
           <TextInput
             style={styles.searchInput}
             placeholder="Search by grade, district or date..."
@@ -131,8 +131,8 @@ export default function HistoricalTrends() {
 
         <View style={styles.statsCard}>
           <View style={styles.statItem}>
-            <View style={[styles.statIcon, { backgroundColor: '#E8F5E9' }]}>
-              <MaterialIcons name="description" size={16} color="#2E7D32" />
+            <View style={[styles.statIcon, { backgroundColor: '#FFFFFF' }]}>
+              <MaterialIcons name="description" size={16} color="#D47024" />
             </View>
             <Text style={styles.statValue}>{stats.totalPredictions}</Text>
             <Text style={styles.statLabel}>Total Predictions</Text>
@@ -227,7 +227,7 @@ export default function HistoricalTrends() {
                 >
                   <View style={styles.leftCol}>
                     <View style={styles.iconCircle}>
-                      <MaterialIcons name="workspace-premium" size={18} color="#2E7D32" />
+                      <MaterialIcons name="workspace-premium" size={18} color="#D47024" />
                     </View>
                     <View style={{ flex: 1 }}>
                       <View style={styles.topRow}>
@@ -349,7 +349,7 @@ const styles = StyleSheet.create({
     marginBottom: 12,
     height: 48,
   },
-  searchInput: { flex: 1, marginLeft: 8, fontSize: 15, color: '#1E1E1E' },
+  searchInput: { flex: 1, marginLeft: 8, fontSize: 15, color: '#2B1D16' },
   statsCard: {
     backgroundColor: '#FFFFFF',
     borderRadius: 12,
@@ -405,12 +405,12 @@ const styles = StyleSheet.create({
     marginRight: 10,
   },
   topRow: { flexDirection: 'row', alignItems: 'center', marginBottom: 2, gap: 8, flexWrap: 'wrap' },
-  dateText: { fontSize: 11, color: '#757575' },
+  dateText: { fontSize: 11, color: '#8D7B70' },
   qualityTag: { borderRadius: 8, paddingHorizontal: 8, paddingVertical: 2 },
   qualityTagText: { fontSize: 10, fontWeight: '700' },
   gradeText: { fontSize: 23, fontWeight: '800', color: '#1D1D1D' },
   metaText: { fontSize: 14, color: '#5E5E5E', marginTop: 1 },
-  priceText: { fontSize: 16, color: '#1E1E1E', fontWeight: '700' },
+  priceText: { fontSize: 16, color: '#2B1D16', fontWeight: '700' },
   priceUnit: { fontSize: 12, color: '#777' },
   totalIncomeText: { fontSize: 16, color: '#166D3A', fontWeight: '800', marginTop: 2 },
   totalIncomeLabel: { fontSize: 11, color: '#777' },
@@ -427,12 +427,12 @@ const styles = StyleSheet.create({
     minWidth: 64,
   },
   viewBtn: {
-    backgroundColor: '#E8F5E9',
+    backgroundColor: '#FFFFFF',
     borderWidth: 1,
     borderColor: '#CDE8D2',
   },
   viewBtnText: {
-    color: '#2E7D32',
+    color: '#D47024',
     fontSize: 12,
     fontWeight: '700',
   },
@@ -457,7 +457,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#FFFFFF',
   },
   navItem: { alignItems: 'center', justifyContent: 'center', paddingHorizontal: 10, paddingVertical: 6 },
-  navItemActive: { backgroundColor: '#0B5E2D', borderRadius: 12, paddingHorizontal: 20 },
+  navItemActive: { backgroundColor: '#D47024', borderRadius: 12, paddingHorizontal: 20 },
   navLabel: { marginTop: 2, fontSize: 11, color: '#9E9E9E' },
   navLabelActive: { color: '#FFFFFF' },
 });

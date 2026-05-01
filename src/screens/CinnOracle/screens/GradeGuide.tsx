@@ -12,7 +12,7 @@ import {
 import { Ionicons, MaterialIcons } from '@expo/vector-icons';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { useNavigation } from '@react-navigation/native';
-import { RootStackParamList } from '../App';
+import { RootStackParamList } from '../index';
 import { getGrades, GradesResponse } from '../src/api/client';
 import AppBottomNav from '../components/AppBottomNav';
 
@@ -195,7 +195,7 @@ export default function GradeGuide() {
         <View style={styles.helpCard}>
           <View style={styles.helpHeaderRow}>
             <View style={styles.helpIcon}>
-              <MaterialIcons name="lightbulb-outline" size={16} color="#27ae60" />
+              <MaterialIcons name="lightbulb-outline" size={16} color="#D47024" />
             </View>
             <Text style={styles.helpTitle}>How CinnOracle Helps</Text>
           </View>
@@ -224,7 +224,7 @@ export default function GradeGuide() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#F5F5F5',
+    backgroundColor: '#FFFFFF',
   },
   header: {
     flexDirection: 'row',
@@ -249,7 +249,7 @@ const styles = StyleSheet.create({
   },
   headerSubtitle: {
     fontSize: 12,
-    color: '#757575',
+    color: '#8D7B70',
     marginTop: 2,
   },
   scrollContent: {
@@ -270,7 +270,7 @@ const styles = StyleSheet.create({
     marginRight: 8,
   },
   highDot: {
-    backgroundColor: '#4CAF50',
+    backgroundColor: '#D47024',
   },
   mediumDot: {
     backgroundColor: '#FFC107',
@@ -288,7 +288,7 @@ const styles = StyleSheet.create({
   },
   sectionDescription: {
     fontSize: 12,
-    color: '#757575',
+    color: '#8D7B70',
     marginTop: 2,
   },
   gradeCard: {
@@ -316,7 +316,7 @@ const styles = StyleSheet.create({
   },
   gradeSubtitle: {
     fontSize: 12,
-    color: '#757575',
+    color: '#8D7B70',
     marginTop: 2,
   },
   bulletRow: {
@@ -353,7 +353,7 @@ const styles = StyleSheet.create({
     width: 22,
     height: 22,
     borderRadius: 6,
-    backgroundColor: '#E8F5E9',
+    backgroundColor: '#FFFFFF',
     justifyContent: 'center',
     alignItems: 'center',
     marginRight: 8,
@@ -397,7 +397,7 @@ const styles = StyleSheet.create({
     marginTop: 2,
   },
   navItemActive: {
-    backgroundColor: '#4CAF50',
+    backgroundColor: '#D47024',
     borderRadius: 24,
     paddingHorizontal: 16,
     paddingVertical: 8,
@@ -412,7 +412,7 @@ const styles = StyleSheet.create({
   },
   loadingText: {
     fontSize: 14,
-    color: '#757575',
+    color: '#8D7B70',
     marginTop: 12,
   },
   errorContainer: {

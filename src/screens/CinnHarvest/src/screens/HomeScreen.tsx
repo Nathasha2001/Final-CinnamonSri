@@ -102,14 +102,14 @@ const styles = StyleSheet.create({
     gap: 16,
   },
   title: {
-    fontSize: 30,
+    fontSize: 28,
     fontWeight: "800",
-    color: palette.text,
+    color: "#1B4332", // Match Home title color exactly
   },
   subtitle: {
-    fontSize: 15,
+    fontSize: 16,
     color: palette.textMuted,
-    lineHeight: 21,
+    lineHeight: 22,
   },
   grid: {
     flexDirection: "row",
@@ -122,18 +122,24 @@ const styles = StyleSheet.create({
     borderRadius: 16,
     borderWidth: 1,
     borderColor: palette.border,
-    padding: 14,
-    minHeight: 160,
+    padding: 16,
+    height: 170,
     justifyContent: "space-between",
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.05,
+    shadowRadius: 10,
+    elevation: 4,
+    marginBottom: 16,
   },
   cardDisabled: {
     opacity: 0.66,
   },
   cardTitle: {
     marginTop: 10,
-    fontSize: 16,
+    fontSize: 18,
     fontWeight: "700",
-    color: palette.text,
+    color: palette.primary,
   },
   cardSubtitle: {
     marginTop: 6,

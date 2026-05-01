@@ -15,7 +15,7 @@ import { MaterialIcons } from '@expo/vector-icons';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { RouteProp } from '@react-navigation/native';
-import { RootStackParamList } from '../App';
+import { RootStackParamList } from '../index';
 
 type NavigationProp = NativeStackNavigationProp<RootStackParamList, 'PricePrediction'>;
 type PricePredictionRouteProp = RouteProp<RootStackParamList, 'PricePrediction'>;
@@ -382,7 +382,7 @@ export default function PricePrediction() {
                 {markets.map((m) => (
                   <View key={m.name} style={styles.marketRow}>
                     <View style={styles.marketIconCircle}>
-                      <MaterialIcons name="place" size={16} color="#2E7D32" />
+                      <MaterialIcons name="place" size={16} color="#D47024" />
                     </View>
                     <View style={{ flex: 1 }}>
                       <Text style={styles.marketText}>{m.name}</Text>
@@ -394,7 +394,7 @@ export default function PricePrediction() {
 
               <View style={styles.infoRow}>
                 <View style={styles.infoIconCircle}>
-                  <MaterialIcons name="info-outline" size={16} color="#2E7D32" />
+                  <MaterialIcons name="info-outline" size={16} color="#D47024" />
                 </View>
                 <Text style={styles.infoText}>{reason}</Text>
               </View>
@@ -408,7 +408,7 @@ export default function PricePrediction() {
           onPress={() => navigation.navigate('GradeGuide')}
         >
           <Text style={styles.gradeGuideText}>View Grade Guide</Text>
-          <MaterialIcons name="chevron-right" size={18} color="#2E7D32" />
+          <MaterialIcons name="chevron-right" size={18} color="#D47024" />
         </TouchableOpacity>
 
         {/* Action Buttons */}
@@ -454,7 +454,7 @@ export default function PricePrediction() {
               style={[styles.actionButton, styles.secondaryAction]}
               onPress={() => navigation.navigate('SavedSuccess')}
             >
-              <MaterialIcons name="save" size={20} color="#2E7D32" />
+              <MaterialIcons name="save" size={20} color="#D47024" />
               <Text style={styles.secondaryActionText}>Save to History</Text>
             </TouchableOpacity>
           </View>
@@ -637,7 +637,7 @@ export default function PricePrediction() {
                     {district}
                   </Text>
                   {districtInput === district && (
-                    <MaterialIcons name="check" size={20} color="#2E7D32" />
+                    <MaterialIcons name="check" size={20} color="#D47024" />
                   )}
                 </TouchableOpacity>
               ))}
@@ -681,7 +681,7 @@ export default function PricePrediction() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#F5F5F5',
+    backgroundColor: '#FFFFFF',
   },
   header: {
     flexDirection: 'row',
@@ -725,7 +725,7 @@ const styles = StyleSheet.create({
     width: 80,
     height: 80,
     borderRadius: 40,
-    backgroundColor: '#E8F5E9',
+    backgroundColor: '#FFFFFF',
     justifyContent: 'center',
     alignItems: 'center',
     marginBottom: 16,
@@ -733,7 +733,7 @@ const styles = StyleSheet.create({
   qualityLevelText: {
     fontSize: 18,
     fontWeight: '700',
-    color: '#2E7D32',
+    color: '#D47024',
     marginBottom: 4,
   },
   gradeText: {
@@ -770,7 +770,7 @@ const styles = StyleSheet.create({
   analysisTitle: {
     fontSize: 16,
     fontWeight: '700',
-    color: '#2E7D32',
+    color: '#D47024',
     marginBottom: 4,
   },
   analysisSubtitle: {
@@ -801,7 +801,7 @@ const styles = StyleSheet.create({
   analysisFieldValue: {
     fontSize: 13,
     fontWeight: '600',
-    color: '#2E7D32',
+    color: '#D47024',
   },
   sellingCard: {
     backgroundColor: '#FFFFFF',
@@ -845,8 +845,8 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
     borderRadius: 8,
     borderWidth: 1,
-    borderColor: '#E0E0E0',
-    backgroundColor: '#FAFAFA',
+    borderColor: '#F4EAE4',
+    backgroundColor: '#FFFFFF',
     fontSize: 13,
     color: '#000000',
   },
@@ -859,7 +859,7 @@ const styles = StyleSheet.create({
     color: '#BDBDBD',
   },
   estimateButton: {
-    backgroundColor: '#4CAF50',
+    backgroundColor: '#D47024',
     borderRadius: 12,
     paddingVertical: 14,
     alignItems: 'center',
@@ -905,11 +905,11 @@ const styles = StyleSheet.create({
     paddingVertical: 6,
     paddingHorizontal: 12,
     borderRadius: 999,
-    backgroundColor: '#E8F5E9',
+    backgroundColor: '#FFFFFF',
   },
   qualityPillText: {
     fontSize: 12,
-    color: '#2E7D32',
+    color: '#D47024',
     fontWeight: '600',
   },
   estimatedGradeText: {
@@ -938,7 +938,7 @@ const styles = StyleSheet.create({
   marketRow: {
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: '#E8F5E9',
+    backgroundColor: '#FFFFFF',
     borderRadius: 999,
     paddingVertical: 10,
     paddingHorizontal: 12,
@@ -955,7 +955,7 @@ const styles = StyleSheet.create({
   },
   marketText: {
     fontSize: 13,
-    color: '#2E7D32',
+    color: '#D47024',
     fontWeight: '500',
   },
   marketSubText: {
@@ -965,7 +965,7 @@ const styles = StyleSheet.create({
   infoRow: {
     flexDirection: 'row',
     alignItems: 'flex-start',
-    backgroundColor: '#E8F5E9',
+    backgroundColor: '#FFFFFF',
     borderRadius: 12,
     padding: 12,
   },
@@ -994,7 +994,7 @@ const styles = StyleSheet.create({
   },
   gradeGuideText: {
     fontSize: 13,
-    color: '#2E7D32',
+    color: '#D47024',
     fontWeight: '600',
     marginRight: 4,
   },
@@ -1012,13 +1012,13 @@ const styles = StyleSheet.create({
     paddingVertical: 14,
   },
   primaryAction: {
-    backgroundColor: '#4CAF50',
+    backgroundColor: '#D47024',
     marginRight: 8,
   },
   secondaryAction: {
     backgroundColor: '#FFFFFF',
     borderWidth: 1,
-    borderColor: '#E0E0E0',
+    borderColor: '#F4EAE4',
     marginLeft: 8,
   },
   primaryActionText: {
@@ -1028,7 +1028,7 @@ const styles = StyleSheet.create({
     marginLeft: 6,
   },
   secondaryActionText: {
-    color: '#2E7D32',
+    color: '#D47024',
     fontSize: 14,
     fontWeight: '600',
     marginLeft: 6,
@@ -1053,7 +1053,7 @@ const styles = StyleSheet.create({
     marginTop: 2,
   },
   navItemActive: {
-    backgroundColor: '#4CAF50',
+    backgroundColor: '#D47024',
     borderRadius: 24,
     paddingHorizontal: 16,
     paddingVertical: 8,
@@ -1113,14 +1113,14 @@ const styles = StyleSheet.create({
     borderBottomColor: '#F5F5F5',
   },
   modalOptionSelected: {
-    backgroundColor: '#F1F8E9',
+    backgroundColor: '#FFFFFF',
   },
   modalOptionText: {
     fontSize: 16,
     color: '#333333',
   },
   modalOptionTextSelected: {
-    color: '#2E7D32',
+    color: '#D47024',
     fontWeight: '600',
   },
   // Date picker styles
@@ -1150,12 +1150,12 @@ const styles = StyleSheet.create({
   datePickerButton: {
     padding: 12,
     borderRadius: 8,
-    backgroundColor: '#F5F5F5',
+    backgroundColor: '#FFFFFF',
   },
   datePickerValue: {
     fontSize: 18,
     fontWeight: '700',
-    color: '#2E7D32',
+    color: '#D47024',
     marginHorizontal: 24,
     minWidth: 80,
     textAlign: 'center',
@@ -1175,10 +1175,10 @@ const styles = StyleSheet.create({
     marginHorizontal: 8,
   },
   cancelButton: {
-    backgroundColor: '#F5F5F5',
+    backgroundColor: '#FFFFFF',
   },
   confirmButton: {
-    backgroundColor: '#4CAF50',
+    backgroundColor: '#D47024',
   },
   cancelButtonText: {
     color: '#666666',

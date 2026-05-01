@@ -26,22 +26,22 @@ export default function CinnOracleApp() {
       <Stack.Screen 
         name="CinnOracleMain" 
         component={CinnOracleMain}
-        options={{ headerShown: false }}
+        options={{ headerShown: false, animation: 'none' }}
       />
       <Stack.Screen 
         name="NewAnalysis" 
         component={NewAnalysis}
-        options={{ headerShown: false }}
+        options={{ headerShown: false, animation: 'none' }}
       />
       <Stack.Screen 
         name="PricePrediction" 
         component={PricePrediction}
-        options={{ headerShown: false }}
+        options={{ headerShown: false, animation: 'none' }}
       />
       <Stack.Screen 
         name="HistoricalTrends" 
         component={HistoricalTrends}
-        options={{ headerShown: false }}
+        options={{ headerShown: false, animation: 'none' }}
       />
       <Stack.Screen 
         name="SavedSuccess" 
@@ -56,12 +56,12 @@ export default function CinnOracleApp() {
       <Stack.Screen 
         name="Report" 
         component={Report}
-        options={{ headerShown: false }}
+        options={{ headerShown: false, animation: 'none' }}
       />
       <Stack.Screen 
         name="GradeGuide" 
         component={GradeGuide}
-        options={{ headerShown: false }}
+        options={{ headerShown: false, animation: 'none' }}
       />
     </Stack.Navigator>
   );

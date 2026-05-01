@@ -34,8 +34,8 @@ function NavButton({
     >
       <MaterialCommunityIcons
         name={icon}
-        size={20}
-        color={active ? palette.surface : palette.primaryDark}
+        size={24}
+        color={active ? palette.primary : "#9CA3AF"}
       />
       <Text style={[styles.label, active && styles.activeLabel]}>{label}</Text>
     </Pressable>
@@ -77,8 +77,8 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     gap: 8,
     paddingHorizontal: 14,
-    paddingTop: 8,
-    paddingBottom: 12,
+    paddingTop: 6,
+    paddingBottom: 8,
     borderTopWidth: 1,
     borderTopColor: palette.border,
     backgroundColor: palette.surface,
@@ -88,21 +88,20 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     borderRadius: 12,
-    paddingVertical: 10,
-    gap: 4,
+    paddingVertical: 8,
+    gap: 2,
   },
   activeButton: {
-    backgroundColor: palette.primary,
   },
   pressed: {
     opacity: 0.85,
   },
   label: {
-    fontSize: 12,
+    fontSize: 11,
     fontWeight: "600",
-    color: palette.primaryDark,
+    color: "#9CA3AF",
   },
   activeLabel: {
-    color: palette.surface,
+    color: palette.primary,
   },
 });

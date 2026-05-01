@@ -1,6 +1,7 @@
 import React from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { View, Text, StyleSheet } from "react-native";
+import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { CinnDryTabParamList } from "../../types/index";
 import { C, FONTS } from "../../components/theme";
 import Dashboard from "./Dashboard";
@@ -13,44 +14,32 @@ const Tab = createBottomTabNavigator<CinnDryTabParamList>();
 
 type TabName = keyof CinnDryTabParamList;
 
-const TAB_META: Record<TabName, { icon: string; label: string }> = {
-  Dashboard: { icon: "🏠", label: "Home"     },
-  Controls:  { icon: "🎛️", label: "Controls" },
-  Gallery:   { icon: "📷", label: "Gallery"  },
-  History:   { icon: "📋", label: "Logs"     },
-  Insights:  { icon: "📊", label: "Insights" },
+const TAB_META: Record<TabName, { icon: any; label: string }> = {
+  Dashboard: { icon: "home-outline", label: "Home" },
+  Controls:  { icon: "tune", label: "Controls" },
+  Gallery:   { icon: "camera-outline", label: "Gallery" },
+  History:   { icon: "format-list-bulleted", label: "Logs" },
+  Insights:  { icon: "chart-box-outline", label: "Insights" },
 };
-
-function TabIcon({ name, focused }: { name: TabName; focused: boolean }) {
-  return (
-    <View style={[styles.iconWrap, focused && styles.iconActive]}>
-      <Text style={[styles.emoji, { opacity: focused ? 1 : 0.45 }]}>
-        {TAB_META[name].icon}
-      </Text>
-      {focused && <View style={styles.dot} />}
-    </View>
-  );
-}
 
 export default function CinnDryNavigator() {
   return (
     <Tab.Navigator
       screenOptions={({ route }) => ({
-        tabBarIcon: ({ focused }) => (
-          <TabIcon name={route.name as TabName} focused={focused} />
+        tabBarIcon: ({ color, size }) => (
+          <MaterialCommunityIcons 
+            name={TAB_META[route.name as TabName].icon as any} 
+            size={size} 
+            color={color} 
+          />
         ),
-        tabBarLabel: ({ focused }) => (
-          <Text style={[styles.label, { color: focused ? C.spiceLight : C.muted }]}>
-            {TAB_META[route.name as TabName].label}
-          </Text>
-        ),
+        tabBarActiveTintColor: C.spice,
+        tabBarInactiveTintColor: "#9CA3AF",
         tabBarStyle: {
           backgroundColor: C.surface,
           borderTopColor:  C.border,
           borderTopWidth:  1,
-          height:          68,
-          paddingBottom:   10,
-          paddingTop:      6,
+          height: 60,
         },
         headerStyle: {
           backgroundColor:   C.surface,
@@ -79,13 +68,13 @@ export default function CinnDryNavigator() {
 }
 
 const styles = StyleSheet.create({
-  iconWrap:    { alignItems: "center", justifyContent: "center", paddingTop: 4 },
+  iconContainer: { alignItems: "center", justifyContent: "center" },
   iconActive:  {},
-  emoji:       { fontSize: 20 },
-  dot:         { width: 4, height: 4, borderRadius: 2, backgroundColor: C.spice, marginTop: 3 },
-  label:       { fontSize: 9, fontFamily: FONTS.mono, letterSpacing: 0.5 },
+  emoji:       { fontSize: 18 },
+  dot:         { display: "none" }, 
+  label:       { fontSize: 11, fontWeight: "600" },
   headerTitle: { flexDirection: "row", alignItems: "center", gap: 10 },
   headerEmoji: { fontSize: 24 },
-  headerMain:  { color: C.cream, fontSize: 16, fontFamily: FONTS.display, fontWeight: "700" },
+  headerMain:  { color: C.text, fontSize: 16, fontFamily: FONTS.display, fontWeight: "700" },
   headerSub:   { color: C.muted, fontSize: 9, fontFamily: FONTS.mono, letterSpacing: 1 },
 });

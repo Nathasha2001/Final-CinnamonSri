@@ -15,7 +15,7 @@ import { Ionicons, MaterialIcons } from '@expo/vector-icons';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import type { RouteProp } from '@react-navigation/native';
-import { RootStackParamList } from '../App';
+import { RootStackParamList } from '../index';
 import * as Print from 'expo-print';
 import * as Sharing from 'expo-sharing';
 import { getPredictions, type PredictionRecord } from '../src/api/client';
@@ -115,13 +115,13 @@ export default function Report() {
       .header {
         text-align: center;
         margin-bottom: 40px;
-        border-bottom: 3px solid #0B5E2D;
+        border-bottom: 3px solid #D47024;
         padding-bottom: 25px;
       }
       .logo-text {
         font-size: 44px;
         font-weight: 900;
-        color: #0B5E2D;
+        color: #D47024;
         margin-bottom: 5px;
         letter-spacing: 2px;
       }
@@ -144,10 +144,10 @@ export default function Report() {
       .section-title {
         font-size: 22px;
         font-weight: 700;
-        color: #0B5E2D;
+        color: #D47024;
         margin-bottom: 18px;
         padding-bottom: 12px;
-        border-bottom: 2px solid #0B5E2D;
+        border-bottom: 2px solid #D47024;
       }
       
       .grid-2 {
@@ -158,7 +158,7 @@ export default function Report() {
       }
       
       .highlight-box {
-        background: linear-gradient(135deg, #0B5E2D 0%, #1a7d3a 100%);
+        background: linear-gradient(135deg, #D47024 0%, #1a7d3a 100%);
         color: white;
         padding: 30px;
         border-radius: 8px;
@@ -181,7 +181,7 @@ export default function Report() {
       
       .info-box {
         background: #f9f9f9;
-        border-left: 4px solid #0B5E2D;
+        border-left: 4px solid #D47024;
         padding: 20px 25px;
         margin-bottom: 20px;
         border-radius: 4px;
@@ -200,7 +200,7 @@ export default function Report() {
       
       .info-label {
         font-weight: 600;
-        color: #0B5E2D;
+        color: #D47024;
       }
       
       .info-value {
@@ -234,7 +234,7 @@ export default function Report() {
       .stat-card .value {
         font-size: 28px;
         font-weight: 800;
-        color: #0B5E2D;
+        color: #D47024;
       }
       
       .marketplace-list {
@@ -246,7 +246,7 @@ export default function Report() {
         background: #f9f9f9;
         margin-bottom: 12px;
         border-radius: 4px;
-        border-left: 4px solid #0B5E2D;
+        border-left: 4px solid #D47024;
         font-size: 15px;
       }
       
@@ -272,7 +272,7 @@ export default function Report() {
       
       .quality-badge {
         display: inline-block;
-        background: #0B5E2D;
+        background: #D47024;
         color: white;
         padding: 8px 16px;
         border-radius: 20px;
@@ -426,7 +426,7 @@ export default function Report() {
 
   return (
     <SafeAreaView style={styles.container}>
-      <StatusBar barStyle="light-content" backgroundColor="#0B5E2D" />
+      <StatusBar barStyle="light-content" backgroundColor="#D47024" />
 
       <View style={styles.header}>
         <TouchableOpacity onPress={() => navigation.goBack()}>
@@ -460,7 +460,7 @@ export default function Report() {
         <ScrollView contentContainerStyle={styles.content} showsVerticalScrollIndicator={false}>
           <View style={styles.card}>
           <View style={styles.topGradeRow}>
-            <View style={styles.gradeIcon}><MaterialIcons name="workspace-premium" size={18} color="#2E7D32" /></View>
+            <View style={styles.gradeIcon}><MaterialIcons name="workspace-premium" size={18} color="#D47024" /></View>
             <View style={{ flex: 1 }}>
               <Text style={styles.label}>Predicted Grade</Text>
               <View style={styles.gradeRow}>
@@ -511,7 +511,7 @@ export default function Report() {
           <Text style={styles.sectionTitle}>Recommended Marketplaces</Text>
           {(markets.length ? markets : [{ name: 'Galle Cinnamon Market', description: 'Local Market' }]).map((m: any) => (
             <View key={m.name} style={styles.marketRow}>
-              <MaterialIcons name="storefront" size={16} color="#2E7D32" />
+              <MaterialIcons name="storefront" size={16} color="#D47024" />
               <View style={{ flex: 1, marginLeft: 8 }}>
                 <Text style={styles.marketName}>{m.name}</Text>
                 {!!m.description && <Text style={styles.marketDesc}>{m.description}</Text>}
@@ -532,7 +532,7 @@ export default function Report() {
         <View style={styles.historyContainer}>
           {loading ? (
             <View style={styles.centerContent}>
-              <ActivityIndicator size="large" color="#0B5E2D" />
+              <ActivityIndicator size="large" color="#D47024" />
               <Text style={styles.loadingText}>Loading predictions...</Text>
             </View>
           ) : error ? (
@@ -584,7 +584,7 @@ export default function Report() {
                   </View>
                   <View style={[styles.predictionRow, styles.noBorder]}>
                     <Text style={styles.predictionLabel}>Total Income</Text>
-                    <Text style={styles.predictionValueBold}>Rs. {(item.harvest_quantity_kg * (item.estimated_price || 0)).toLocaleString(undefined, { maximumFractionDigits: 2 })}</Text>
+                    <Text style={styles.predictionValueBold}>Rs. {((item.harvest_quantity_kg || 0) * (item.estimated_price || 0)).toLocaleString(undefined, { maximumFractionDigits: 2 })}</Text>
                   </View>
                 </View>
               )}
@@ -615,15 +615,15 @@ const styles = StyleSheet.create({
     borderBottomColor: 'transparent',
   },
   tabActive: {
-    borderBottomColor: '#0B5E2D',
+    borderBottomColor: '#D47024',
   },
   tabText: {
     fontSize: 13,
     fontWeight: '600',
-    color: '#757575',
+    color: '#8D7B70',
   },
   tabTextActive: {
-    color: '#0B5E2D',
+    color: '#D47024',
     fontWeight: '700',
   },
   historyContainer: {
@@ -658,7 +658,7 @@ const styles = StyleSheet.create({
     marginTop: 16,
     paddingHorizontal: 20,
     paddingVertical: 10,
-    backgroundColor: '#0B5E2D',
+    backgroundColor: '#D47024',
     borderRadius: 6,
   },
   retryButtonText: {
@@ -687,7 +687,7 @@ const styles = StyleSheet.create({
   predictionGrade: {
     fontSize: 20,
     fontWeight: '800',
-    color: '#0B5E2D',
+    color: '#D47024',
   },
   predictionDate: {
     fontSize: 11,
@@ -695,13 +695,13 @@ const styles = StyleSheet.create({
     marginTop: 4,
   },
   predictionBadge: {
-    backgroundColor: '#E8F5E9',
+    backgroundColor: '#FFFFFF',
     paddingHorizontal: 10,
     paddingVertical: 6,
     borderRadius: 6,
   },
   predictionBadgeText: {
-    color: '#2E7D32',
+    color: '#D47024',
     fontSize: 11,
     fontWeight: '700',
   },
@@ -722,20 +722,20 @@ const styles = StyleSheet.create({
   },
   predictionValue: {
     fontSize: 12,
-    color: '#1E1E1E',
+    color: '#2B1D16',
     fontWeight: '600',
     textAlign: 'right',
     flex: 1,
   },
   predictionValueBold: {
     fontSize: 13,
-    color: '#0B5E2D',
+    color: '#D47024',
     fontWeight: '700',
     textAlign: 'right',
     flex: 1,
   },
   header: {
-    backgroundColor: '#0B5E2D',
+    backgroundColor: '#D47024',
     paddingHorizontal: 14,
     paddingVertical: 12,
     flexDirection: 'row',
@@ -757,24 +757,24 @@ const styles = StyleSheet.create({
     width: 42,
     height: 42,
     borderRadius: 21,
-    backgroundColor: '#E8F5E9',
+    backgroundColor: '#FFFFFF',
     alignItems: 'center',
     justifyContent: 'center',
     marginRight: 10,
   },
   label: { fontSize: 12, color: '#666' },
   gradeRow: { flexDirection: 'row', alignItems: 'center', gap: 8 },
-  gradeText: { fontSize: 33, fontWeight: '800', color: '#1E1E1E' },
-  qualityPill: { backgroundColor: '#E8F5E9', borderRadius: 8, paddingHorizontal: 8, paddingVertical: 3 },
-  qualityPillText: { color: '#2E7D32', fontSize: 11, fontWeight: '700' },
+  gradeText: { fontSize: 33, fontWeight: '800', color: '#2B1D16' },
+  qualityPill: { backgroundColor: '#FFFFFF', borderRadius: 8, paddingHorizontal: 8, paddingVertical: 3 },
+  qualityPillText: { color: '#D47024', fontSize: 11, fontWeight: '700' },
   metaGrid: { flexDirection: 'row', flexWrap: 'wrap', marginBottom: 8 },
   metaItem: { width: '50%', marginBottom: 8 },
-  metaLabel: { fontSize: 11, color: '#757575' },
-  metaValue: { fontSize: 12, color: '#1E1E1E', fontWeight: '600' },
+  metaLabel: { fontSize: 11, color: '#8D7B70' },
+  metaValue: { fontSize: 12, color: '#2B1D16', fontWeight: '600' },
   statsRow: { flexDirection: 'row', gap: 8 },
   statBox: { flex: 1, backgroundColor: '#F6FAF7', borderRadius: 8, borderWidth: 1, borderColor: '#E1ECE3', padding: 10 },
   statTitle: { fontSize: 11, color: '#4C6F55', marginBottom: 4 },
-  statValue: { fontSize: 20, color: '#0B5E2D', fontWeight: '800' },
+  statValue: { fontSize: 20, color: '#D47024', fontWeight: '800' },
   sectionTitle: { fontSize: 17, fontWeight: '700', color: '#222', marginBottom: 6 },
   dataRow: {
     flexDirection: 'row',
@@ -784,9 +784,8 @@ const styles = StyleSheet.create({
     borderBottomColor: '#F0F0F0',
     paddingVertical: 8,
   },
-  noBorder: { borderBottomWidth: 0 },
   dataLabel: { fontSize: 13, color: '#424242', flex: 1, paddingRight: 8 },
-  dataValue: { fontSize: 13, color: '#1E1E1E', fontWeight: '600' },
+  dataValue: { fontSize: 13, color: '#2B1D16', fontWeight: '600' },
   marketRow: {
     flexDirection: 'row',
     alignItems: 'center',
@@ -794,7 +793,7 @@ const styles = StyleSheet.create({
     borderBottomColor: '#F0F0F0',
     paddingVertical: 8,
   },
-  marketName: { fontSize: 13, color: '#1E1E1E', fontWeight: '600' },
+  marketName: { fontSize: 13, color: '#2B1D16', fontWeight: '600' },
   marketDesc: { fontSize: 11, color: '#7A7A7A', marginTop: 2 },
   downloadButton: {
     backgroundColor: '#0B7A33',

@@ -10,7 +10,7 @@ import {
 import { Ionicons, MaterialIcons } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
-import { RootStackParamList } from '../App';
+import { RootStackParamList } from '../index';
 
 type NavigationProp = NativeStackNavigationProp<RootStackParamList>;
 
@@ -24,7 +24,7 @@ export default function SavedSuccess() {
         {/* Success Icon */}
         <View style={styles.iconContainer}>
           <View style={styles.iconCircle}>
-            <MaterialIcons name="description" size={48} color="#27ae60" />
+            <MaterialIcons name="description" size={48} color="#D47024" />
             <View style={styles.checkmarkOverlay}>
               <MaterialIcons name="check" size={16} color="#FFFFFF" />
             </View>
@@ -90,7 +90,7 @@ const styles = StyleSheet.create({
     width: 100,
     height: 100,
     borderRadius: 50,
-    backgroundColor: '#E8F5E9',
+    backgroundColor: '#FFFFFF',
     justifyContent: 'center',
     alignItems: 'center',
     position: 'relative',
@@ -99,7 +99,7 @@ const styles = StyleSheet.create({
     position: 'absolute',
     bottom: 8,
     right: 8,
-    backgroundColor: '#27ae60',
+    backgroundColor: '#D47024',
     borderRadius: 12,
     width: 28,
     height: 28,
@@ -128,7 +128,7 @@ const styles = StyleSheet.create({
     gap: 16,
   },
   viewHistoryButton: {
-    backgroundColor: '#27ae60',
+    backgroundColor: '#D47024',
     borderRadius: 12,
     paddingVertical: 16,
     paddingHorizontal: 32,
@@ -149,17 +149,17 @@ const styles = StyleSheet.create({
     fontWeight: '700',
   },
   backToHomeButton: {
-    backgroundColor: '#F5F5F5',
+    backgroundColor: '#FFFFFF',
     borderRadius: 12,
     paddingVertical: 16,
     paddingHorizontal: 32,
     alignItems: 'center',
     justifyContent: 'center',
     borderWidth: 1,
-    borderColor: '#E0E0E0',
+    borderColor: '#F4EAE4',
   },
   backToHomeButtonText: {
-    color: '#27ae60',
+    color: '#D47024',
     fontSize: 16,
     fontWeight: '600',
   },

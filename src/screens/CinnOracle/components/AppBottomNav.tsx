@@ -3,7 +3,7 @@ import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 import { MaterialIcons } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
-import { RootStackParamList } from '../App';
+import { RootStackParamList } from '../index';
 
 type NavigationProp = NativeStackNavigationProp<RootStackParamList>;
 type NavKey = 'home' | 'predict' | 'history' | 'grade';
@@ -19,7 +19,7 @@ export default function AppBottomNav({ active }: Props) {
     key: NavKey;
     label: string;
     icon: keyof typeof MaterialIcons.glyphMap;
-    route: keyof RootStackParamList;
+    route: Extract<keyof RootStackParamList, 'CinnOracleMain' | 'NewAnalysis' | 'HistoricalTrends' | 'GradeGuide'>;
   }> = [
     { key: 'home', label: 'Home', icon: 'home', route: 'CinnOracleMain' },
     { key: 'predict', label: 'Predict', icon: 'grass', route: 'NewAnalysis' },
@@ -40,8 +40,8 @@ export default function AppBottomNav({ active }: Props) {
           >
             <MaterialIcons
               name={item.icon}
-              size={22}
-              color={isActive ? '#FFFFFF' : '#9E9E9E'}
+              size={24}
+              color={isActive ? '#D47024' : '#9CA3AF'}
             />
             <Text style={[styles.navLabel, isActive && styles.navLabelActive]}>
               {item.label}
@@ -56,30 +56,31 @@ export default function AppBottomNav({ active }: Props) {
 const styles = StyleSheet.create({
   bottomNav: {
     flexDirection: 'row',
-    justifyContent: 'space-around',
-    alignItems: 'center',
-    paddingVertical: 8,
+    gap: 8,
+    paddingHorizontal: 14,
+    paddingTop: 6,
+    paddingBottom: 8,
     borderTopWidth: 1,
-    borderTopColor: '#E0E0E0',
+    borderTopColor: '#E5E7EB',
     backgroundColor: '#FFFFFF',
   },
   navItem: {
+    flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
-    paddingHorizontal: 10,
-    paddingVertical: 6,
     borderRadius: 12,
+    paddingVertical: 8,
+    gap: 2,
   },
   navItemActive: {
-    backgroundColor: '#0B5E2D',
+    // Clean minimalist style: no background
   },
   navLabel: {
-    marginTop: 2,
     fontSize: 11,
-    color: '#9E9E9E',
+    fontWeight: '600',
+    color: '#9CA3AF',
   },
   navLabelActive: {
-    color: '#FFFFFF',
-    fontWeight: '700',
+    color: '#D47024',
   },
 });

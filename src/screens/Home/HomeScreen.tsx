@@ -1,7 +1,7 @@
 import React from 'react';
 import { StyleSheet, Text, View, TouchableOpacity, SafeAreaView, StatusBar, Image, ScrollView } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
-import { Sun, Sparkles, Sprout, ShieldCheck } from 'lucide-react-native';
+import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 
@@ -20,29 +20,25 @@ const MODULES = [
     id: 'CinnDry',
     title: 'CinnamonDry',
     description: 'Drying parameters & monitoring',
-    icon: Sun,
-    colors: ['#F59E0B', '#D97706'], // Warm Amber/Orange
+    icon: 'weather-sunny',
   },
   {
     id: 'CinnOracle',
     title: 'CinnOracle',
     description: 'AI-driven yield predictions',
-    icon: Sparkles,
-    colors: ['#8B5CF6', '#6D28D9'], // Purple/Mystic
+    icon: 'creation',
   },
   {
     id: 'CinnHarvest',
     title: 'CinnHarvest',
     description: 'Harvesting optimization & timing',
-    icon: Sprout,
-    colors: ['#10B981', '#059669'], // Green/Nature
+    icon: 'leaf',
   },
   {
     id: 'CinnGuard',
     title: 'CinnGuard',
     description: 'Disease detection & protection',
-    icon: ShieldCheck,
-    colors: ['#3B82F6', '#2563EB'], // Blue/Protection
+    icon: 'shield-check',
   },
 ] as const;
 
@@ -81,18 +77,13 @@ export default function HomeScreen() {
               activeOpacity={0.8}
               onPress={() => handleModulePress(mod.id)}
             >
-              <LinearGradient
-                colors={mod.colors}
-                start={{ x: 0, y: 0 }}
-                end={{ x: 1, y: 1 }}
-                style={styles.card}
-              >
+              <View style={styles.card}>
                 <View style={styles.iconContainer}>
-                  <mod.icon size={32} color="#FFFFFF" strokeWidth={2.5} />
+                  <MaterialCommunityIcons name={mod.icon as any} size={36} color="#D47024" />
                 </View>
                 <Text style={styles.cardTitle}>{mod.title}</Text>
                 <Text style={styles.cardDesc}>{mod.description}</Text>
-              </LinearGradient>
+              </View>
             </TouchableOpacity>
           ))}
         </View>
@@ -105,12 +96,12 @@ export default function HomeScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#F8FAFC', // Sleek light background
+    backgroundColor: '#FFFFFF', // Clean White Home
   },
   scrollContent: {
     flexGrow: 1,
     paddingHorizontal: 24,
-    paddingTop: 60,
+    paddingTop: 100, // Moved down to center better
     paddingBottom: 40,
     alignItems: 'center',
   },
@@ -141,13 +132,13 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 28,
     fontWeight: '800',
-    color: '#1E293B',
+    color: '#D47024', // Caramel Title
     marginBottom: 8,
     letterSpacing: -0.5,
   },
   subtitle: {
     fontSize: 16,
-    color: '#64748B',
+    color: '#8D7B70', // Coffee Muted Subtitle
     fontWeight: '500',
   },
   gridContainer: {
@@ -160,36 +151,42 @@ const styles = StyleSheet.create({
     width: '48%',
     marginBottom: 16,
     shadowColor: '#000',
-    shadowOffset: { width: 0, height: 10 },
-    shadowOpacity: 0.15,
-    shadowRadius: 15,
-    elevation: 10,
+    shadowOffset: { width: 0, height: 6 },
+    shadowOpacity: 0.1,
+    shadowRadius: 12,
+    elevation: 6,
   },
   card: {
-    borderRadius: 24,
-    padding: 20,
-    minHeight: 180,
-    justifyContent: 'space-between',
+    borderRadius: 16,
+    padding: 16,
+    height: 170, // Fixed rigid height
+    alignItems: 'center', // Centered icons and text
+    justifyContent: 'center',
+    backgroundColor: '#FFFFFF', // White cards
+    borderWidth: 1,
+    borderColor: '#F4EAE4', // Soft beige border
   },
   iconContainer: {
     width: 56,
     height: 56,
-    borderRadius: 16,
-    backgroundColor: 'rgba(255, 255, 255, 0.25)',
+    borderRadius: 28,
+    backgroundColor: '#FDF5EC', // Very soft caramel background
     alignItems: 'center',
     justifyContent: 'center',
-    marginBottom: 16,
+    marginBottom: 12,
   },
   cardTitle: {
-    fontSize: 18,
+    fontSize: 17,
     fontWeight: '700',
-    color: '#FFFFFF',
+    color: '#2B1D16', // Coffee Dark
     marginBottom: 6,
+    textAlign: 'center',
   },
   cardDesc: {
     fontSize: 13,
-    color: 'rgba(255, 255, 255, 0.85)',
+    color: '#8D7B70', // Coffee Muted
     lineHeight: 18,
     fontWeight: '500',
+    textAlign: 'center',
   },
 });

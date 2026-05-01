@@ -12,7 +12,7 @@ import {
 import { Ionicons, MaterialIcons } from '@expo/vector-icons';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { useNavigation } from '@react-navigation/native';
-import { RootStackParamList } from '../App';
+import { RootStackParamList } from '../index';
 import { checkHealth } from '../src/api/client';
 import AppBottomNav from '../components/AppBottomNav';
 
@@ -65,7 +65,7 @@ export default function CinnOracleMain() {
           <Text style={styles.predictSubtitle}>Predict Quality & Get Price</Text>
         </View>
         <View style={styles.predictIconWrap}>
-            <MaterialIcons name="description" size={22} color="#27ae60" />
+            <MaterialIcons name="description" size={24} color="#D47024" />
         </View>
       </TouchableOpacity>
 
@@ -77,7 +77,7 @@ export default function CinnOracleMain() {
         >
           <Text style={styles.historyText}>History</Text>
           <View style={styles.historyIconWrap}>
-            <Ionicons name="refresh" size={18} color="#27ae60" />
+            <Ionicons name="refresh" size={18} color="#D47024" />
           </View>
         </TouchableOpacity>
 
@@ -89,7 +89,7 @@ export default function CinnOracleMain() {
         >
           <Text style={styles.historyText}>Cinnamon Grade Guide</Text>
           <View style={styles.historyIconWrap}>
-            <MaterialIcons name="map" size={18} color="#27ae60" />
+            <MaterialIcons name="map" size={18} color="#D47024" />
           </View>
         </TouchableOpacity>
 
@@ -128,7 +128,8 @@ export default function CinnOracleMain() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#F5F5F5',
+    backgroundColor: '#FFFFFF',
+    paddingTop: 40, // Move the screen down
   },
   header: {
     flexDirection: 'row',
@@ -139,16 +140,16 @@ const styles = StyleSheet.create({
     backgroundColor: '#FFFFFF',
   },
   title: {
-    fontSize: 18,
-    fontWeight: '700',
-    color: '#000000',
+    fontSize: 22,
+    fontWeight: '800',
+    color: '#D47024',
   },
   scrollContent: {
     padding: 20,
     paddingBottom: 24,
   },
   priceCard: {
-    backgroundColor: '#27ae60',
+    backgroundColor: '#D47024',
     borderRadius: 16,
     padding: 20,
     marginBottom: 16,
@@ -175,7 +176,7 @@ const styles = StyleSheet.create({
   },
   priceChange: {
     alignSelf: 'flex-start',
-    backgroundColor: '#4CAF50',
+    backgroundColor: '#D47024',
     paddingHorizontal: 12,
     paddingVertical: 6,
     borderRadius: 20,
@@ -189,41 +190,40 @@ const styles = StyleSheet.create({
     fontWeight: '600',
   },
   predictButton: {
-    backgroundColor: '#27ae60',
-    borderRadius: 12,
+    backgroundColor: '#FFFFFF',
+    borderRadius: 16,
+    borderWidth: 1,
+    borderColor: '#F4EAE4',
     padding: 16,
-    marginBottom: 12,
+    marginBottom: 16,
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
     shadowColor: '#000',
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
-    shadowOpacity: 0.1,
-    shadowRadius: 4,
-    elevation: 3,
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.05,
+    shadowRadius: 10,
+    elevation: 4,
   },
   predictTextWrap: {
     flex: 1,
   },
   predictTitle: {
-    color: '#FFFFFF',
+    color: '#2B1D16',
     fontSize: 18,
     fontWeight: '700',
     marginBottom: 4,
   },
   predictSubtitle: {
-    color: '#FFFFFF',
+    color: '#8D7B70',
     fontSize: 13,
     opacity: 0.9,
   },
   predictIconWrap: {
     backgroundColor: '#FFFFFF',
-    width: 44,
-    height: 44,
-    borderRadius: 10,
+    width: 46,
+    height: 46,
+    borderRadius: 12,
     justifyContent: 'center',
     alignItems: 'center',
     marginLeft: 12,
@@ -235,18 +235,15 @@ const styles = StyleSheet.create({
     backgroundColor: '#FFFFFF',
     paddingVertical: 14,
     paddingHorizontal: 16,
-    borderRadius: 12,
-    marginBottom: 20,
-    shadowColor: '#000',
-    shadowOffset: {
-      width: 0,
-      height: 1,
-    },
-    shadowOpacity: 0.05,
-    shadowRadius: 3,
-    elevation: 2,
+    borderRadius: 16,
+    marginBottom: 16,
     borderWidth: 1,
-    borderColor: '#F0F0F0',
+    borderColor: '#F4EAE4',
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.05,
+    shadowRadius: 10,
+    elevation: 4,
   },
   historyText: {
     fontSize: 16,
@@ -254,7 +251,7 @@ const styles = StyleSheet.create({
     color: '#000000',
   },
   historyIconWrap: {
-    backgroundColor: '#E8F5E9',
+    backgroundColor: '#FFFFFF',
     width: 32,
     height: 32,
     borderRadius: 8,
@@ -269,19 +266,16 @@ const styles = StyleSheet.create({
   },
   qualityContainer: {
     backgroundColor: '#FFFFFF',
-    borderRadius: 12,
+    borderRadius: 16,
     padding: 16,
     marginBottom: 24,
-    shadowColor: '#000',
-    shadowOffset: {
-      width: 0,
-      height: 1,
-    },
-    shadowOpacity: 0.05,
-    shadowRadius: 3,
-    elevation: 2,
     borderWidth: 1,
-    borderColor: '#F0F0F0',
+    borderColor: '#F4EAE4',
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.05,
+    shadowRadius: 10,
+    elevation: 4,
   },
   qualityRow: {
     flexDirection: 'row',
@@ -322,14 +316,14 @@ const styles = StyleSheet.create({
     letterSpacing: 0.5,
   },
   badgeA: {
-    backgroundColor: '#E8F5E9',
+    backgroundColor: '#FFFFFF',
     borderRadius: 20,
     paddingVertical: 6,
     paddingHorizontal: 12,
     alignSelf: 'flex-start',
   },
   badgeTextA: {
-    color: '#27ae60',
+    color: '#D47024',
     fontWeight: '700',
     fontSize: 11,
     letterSpacing: 0.5,
@@ -367,7 +361,7 @@ const styles = StyleSheet.create({
     marginTop: 2,
   },
   navItemActive: {
-    backgroundColor: '#4CAF50',
+    backgroundColor: '#D47024',
     borderRadius: 24,
     paddingHorizontal: 16,
     paddingVertical: 8,

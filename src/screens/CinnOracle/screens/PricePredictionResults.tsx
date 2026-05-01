@@ -12,7 +12,7 @@ import { MaterialIcons } from '@expo/vector-icons';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { RouteProp } from '@react-navigation/native';
-import { RootStackParamList } from '../App';
+import { RootStackParamList } from '../index';
 import AppBottomNav from '../components/AppBottomNav';
 
 type NavigationProp = NativeStackNavigationProp<RootStackParamList, 'PricePrediction'>;
@@ -114,7 +114,7 @@ export default function PricePredictionResults() {
           <Text style={styles.sectionSub}>Based on your grade, quantity and district ({district}).</Text>
           {(marketplaces.length ? marketplaces : [`${district} Cinnamon Market`]).map((m) => (
             <View key={m} style={styles.marketRow}>
-              <MaterialIcons name="storefront" size={18} color="#2E7D32" />
+              <MaterialIcons name="storefront" size={18} color="#D47024" />
               <Text style={styles.marketText}>{m}</Text>
               <MaterialIcons name="chevron-right" size={18} color="#9E9E9E" />
             </View>
@@ -127,7 +127,7 @@ export default function PricePredictionResults() {
         </TouchableOpacity>
 
         <TouchableOpacity style={styles.historyButton} onPress={() => navigation.navigate('HistoricalTrends')}>
-          <MaterialIcons name="history" size={18} color="#2E7D32" />
+          <MaterialIcons name="history" size={18} color="#D47024" />
           <Text style={styles.historyButtonText}>Go to History</Text>
         </TouchableOpacity>
       </ScrollView>
@@ -149,7 +149,7 @@ const styles = StyleSheet.create({
   headerTitle: { color: '#FFFFFF', fontSize: 22, fontWeight: '700' },
   content: { padding: 14, paddingBottom: 24 },
   successBanner: {
-    backgroundColor: '#E8F5E9',
+    backgroundColor: '#FFFFFF',
     borderWidth: 1,
     borderColor: '#C8E6C9',
     borderRadius: 12,
@@ -160,7 +160,7 @@ const styles = StyleSheet.create({
     marginBottom: 12,
   },
   successTitle: { color: '#1B5E20', fontSize: 16, fontWeight: '700' },
-  successSub: { color: '#2E7D32', fontSize: 13, marginTop: 2 },
+  successSub: { color: '#D47024', fontSize: 13, marginTop: 2 },
   grid: { flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'space-between' },
   statCard: {
     width: '48.4%',
@@ -173,7 +173,7 @@ const styles = StyleSheet.create({
   },
   statLabel: { fontSize: 12, color: '#616161' },
   statValue: { fontSize: 30, color: '#1B5E20', fontWeight: '800', marginVertical: 6 },
-  badge: { alignSelf: 'flex-start', backgroundColor: '#E8F5E9', borderRadius: 8, paddingHorizontal: 8, paddingVertical: 4 },
+  badge: { alignSelf: 'flex-start', backgroundColor: '#FFFFFF', borderRadius: 8, paddingHorizontal: 8, paddingVertical: 4 },
   badgeText: { color: '#1B5E20', fontSize: 11, fontWeight: '700' },
   sectionCard: {
     backgroundColor: '#FFFFFF',
@@ -184,10 +184,10 @@ const styles = StyleSheet.create({
     marginTop: 8,
   },
   sectionTitle: { fontSize: 18, fontWeight: '700', color: '#1F1F1F', marginBottom: 8 },
-  sectionSub: { fontSize: 13, color: '#757575', marginBottom: 8 },
+  sectionSub: { fontSize: 13, color: '#8D7B70', marginBottom: 8 },
   row: { flexDirection: 'row', justifyContent: 'space-between', paddingVertical: 8, borderBottomWidth: 1, borderBottomColor: '#F1F1F1' },
   rowLabel: { color: '#424242', fontSize: 13, flex: 1, paddingRight: 12 },
-  rowValue: { color: '#1E1E1E', fontSize: 13, fontWeight: '600' },
+  rowValue: { color: '#2B1D16', fontSize: 13, fontWeight: '600' },
   marketRow: {
     flexDirection: 'row',
     alignItems: 'center',
@@ -196,7 +196,7 @@ const styles = StyleSheet.create({
     borderBottomWidth: 1,
     borderBottomColor: '#F3F3F3',
   },
-  marketText: { flex: 1, fontSize: 14, color: '#1E1E1E', fontWeight: '600' },
+  marketText: { flex: 1, fontSize: 14, color: '#2B1D16', fontWeight: '600' },
   newPredictionButton: {
     marginTop: 16,
     backgroundColor: '#0B7A33',
@@ -220,5 +220,5 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: '#CDE8D2',
   },
-  historyButtonText: { color: '#2E7D32', fontSize: 15, fontWeight: '700' },
+  historyButtonText: { color: '#D47024', fontSize: 15, fontWeight: '700' },
 });

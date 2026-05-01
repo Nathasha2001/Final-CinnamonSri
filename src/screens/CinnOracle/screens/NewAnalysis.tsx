@@ -14,7 +14,7 @@ import {
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { MaterialIcons } from '@expo/vector-icons';
-import { RootStackParamList } from '../App';
+import { RootStackParamList } from '../index';
 import { predictCinnOracle, CinnOraclePredictRequest } from '../src/api/client';
 import AppBottomNav from '../components/AppBottomNav';
 
@@ -644,7 +644,7 @@ export default function NewAnalysis() {
                 >
                   <Text style={styles.modalOptionText}>{d}</Text>
                   {district === d && (
-                    <MaterialIcons name="check" size={20} color="#2E7D32" />
+                    <MaterialIcons name="check" size={20} color="#D47024" />
                   )}
                 </TouchableOpacity>
               ))}
@@ -658,7 +658,7 @@ export default function NewAnalysis() {
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: '#F5F5F5' },
+  container: { flex: 1, backgroundColor: '#FFFFFF' },
   header: {
     backgroundColor: '#FFFFFF',
     paddingHorizontal: 16,
@@ -667,7 +667,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'space-between',
   },
-  headerTitle: { fontSize: 16, fontWeight: '700', color: '#1E1E1E' },
+  headerTitle: { fontSize: 16, fontWeight: '700', color: '#2B1D16' },
   content: { padding: 16, paddingBottom: 28 },
   sectionTag: {
     fontSize: 13,
@@ -682,13 +682,13 @@ const styles = StyleSheet.create({
     backgroundColor: '#FFFFFF',
     borderRadius: 10,
     borderWidth: 1,
-    borderColor: '#E0E0E0',
+    borderColor: '#F4EAE4',
     paddingVertical: 14,
     paddingHorizontal: 12,
   },
-  optionCardActive: { borderColor: '#2E7D32', backgroundColor: '#F1F8E9' },
+  optionCardActive: { borderColor: '#D47024', backgroundColor: '#FFFFFF' },
   optionTitle: { fontSize: 14, fontWeight: '600', color: '#424242', textAlign: 'center' },
-  optionTitleActive: { color: '#2E7D32' },
+  optionTitleActive: { color: '#D47024' },
   card: {
     backgroundColor: '#FFFFFF',
     borderRadius: 12,
@@ -702,12 +702,12 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: '#D7D7D7',
     borderRadius: 8,
-    backgroundColor: '#FAFAFA',
+    backgroundColor: '#FFFFFF',
     paddingHorizontal: 12,
     paddingVertical: 10,
     fontSize: 14,
     marginBottom: 8,
-    color: '#1E1E1E',
+    color: '#2B1D16',
   },
   inputError: {
     borderColor: '#D32F2F',
@@ -727,7 +727,7 @@ const styles = StyleSheet.create({
   },
   dropdownText: {
     fontSize: 14,
-    color: '#1E1E1E',
+    color: '#2B1D16',
   },
   readOnlyBox: {
     borderWidth: 1,
@@ -738,16 +738,16 @@ const styles = StyleSheet.create({
     paddingVertical: 10,
     marginBottom: 8,
   },
-  readOnlyText: { color: '#2E7D32', fontSize: 14, fontWeight: '700' },
+  readOnlyText: { color: '#D47024', fontSize: 14, fontWeight: '700' },
   tempRow: { flexDirection: 'row', alignItems: 'center', gap: 10 },
   tempHeaderRow: {
     flexDirection: 'row',
     alignItems: 'center',
     marginBottom: 6,
   },
-  tempHeaderDay: { width: 42, fontSize: 11, color: '#757575', fontWeight: '700' },
-  tempHeaderCol: { flex: 1, fontSize: 11, color: '#757575', fontWeight: '700', textAlign: 'center' },
-  tempHeaderAvg: { width: 64, fontSize: 11, color: '#757575', fontWeight: '700', textAlign: 'center' },
+  tempHeaderDay: { width: 42, fontSize: 11, color: '#8D7B70', fontWeight: '700' },
+  tempHeaderCol: { flex: 1, fontSize: 11, color: '#8D7B70', fontWeight: '700', textAlign: 'center' },
+  tempHeaderAvg: { width: 64, fontSize: 11, color: '#8D7B70', fontWeight: '700', textAlign: 'center' },
   dayLabel: { width: 42, fontSize: 12, color: '#555' },
   tempInput: {
     flex: 1,
@@ -762,7 +762,7 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     fontWeight: '600',
   },
-  avgText: { marginTop: 4, fontSize: 12, color: '#2E7D32', fontWeight: '600' },
+  avgText: { marginTop: 4, fontSize: 12, color: '#D47024', fontWeight: '600' },
   chip: {
     borderRadius: 18,
     borderWidth: 1,
@@ -771,11 +771,11 @@ const styles = StyleSheet.create({
     paddingVertical: 8,
     backgroundColor: '#FFFFFF',
   },
-  chipActive: { borderColor: '#2E7D32', backgroundColor: '#F1F8E9' },
+  chipActive: { borderColor: '#D47024', backgroundColor: '#FFFFFF' },
   chipText: { color: '#555', fontSize: 13, fontWeight: '500' },
-  chipTextActive: { color: '#2E7D32', fontWeight: '700' },
+  chipTextActive: { color: '#D47024', fontWeight: '700' },
   predictButton: {
-    backgroundColor: '#2E7D32',
+    backgroundColor: '#D47024',
     borderRadius: 10,
     alignItems: 'center',
     paddingVertical: 14,
@@ -806,7 +806,7 @@ const styles = StyleSheet.create({
   modalTitle: {
     fontSize: 16,
     fontWeight: '700',
-    color: '#1E1E1E',
+    color: '#2B1D16',
   },
   modalOption: {
     flexDirection: 'row',

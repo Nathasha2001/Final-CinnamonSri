@@ -28,7 +28,7 @@ export default function CinnHarvestApp() {
           contentStyle: {
             backgroundColor: palette.background,
           },
-          animation: "slide_from_bottom",
+          animation: "none", // Instant switch like CinnDry tabs
         }}
       >
         <Stack.Screen name="Home" component={HomeScreen} />
