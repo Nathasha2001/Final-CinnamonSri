@@ -11,6 +11,7 @@ import HomeScreen from '../features/home/HomeScreen';
 import CinnDryNavigator from '../features/drying/src/screens/CinnDry/index';
 import CinnOracleApp from '../features/prediction/index';
 import CinnHarvest from '../features/harvest/index';
+import CinnGuardNavigator from '../features/guard/index';
 
 const Stack = createNativeStackNavigator();
 
@@ -44,8 +45,6 @@ export default function AppNavigator() {
             fontFamily: 'Georgia', // fallback to system sans-serif on Android if not loaded
             fontWeight: '700',
           },
-          headerBackTitleVisible: false,
-          headerBackVisible: true,
           contentStyle: {
             backgroundColor: C.bg,
           },
@@ -79,6 +78,13 @@ export default function AppNavigator() {
         <Stack.Screen
           name="CinnHarvest"
           component={CinnHarvest}
+          options={{ headerShown: false }}
+        />
+
+        {/* CinnGuard Module */}
+        <Stack.Screen
+          name="CinnGuard"
+          component={CinnGuardNavigator}
           options={{ headerShown: false }}
         />
 
