@@ -1,4 +1,4 @@
-import { MaterialCommunityIcons } from "@expo/vector-icons";
+import { MaterialCommunityIcons, Ionicons } from "@expo/vector-icons";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import {
@@ -50,13 +50,21 @@ export function HomeScreen({ navigation }: Props) {
 
   return (
     <View style={styles.root}>
+      {/* Header */}
+      <View style={styles.header}>
+        <Pressable onPress={() => navigation.getParent()?.navigate("Home" as any)}>
+          <Ionicons name="arrow-back" size={26} color="#000000" />
+        </Pressable>
+        <Text style={styles.headerTitle}>Cinnamon Insights</Text>
+        <View style={{ width: 26 }} /> {/* Spacer for centering */}
+      </View>
+
       <ScrollView
         contentContainerStyle={[
           styles.content,
-          { paddingTop: insets.top + 18, paddingBottom: insets.bottom + 18 },
+          { paddingTop: 24, paddingBottom: insets.bottom + 18 },
         ]}
       >
-        <Text style={styles.title}>Cinnamon Insights</Text>
         <Text style={styles.subtitle}>
           Select a workspace. The cinnamon stem tool is ready now.
         </Text>
@@ -93,18 +101,30 @@ export function HomeScreen({ navigation }: Props) {
 }
 
 const styles = StyleSheet.create({
+  header: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+    paddingHorizontal: 16,
+    paddingVertical: 12,
+    backgroundColor: palette.background,
+  },
+  headerTitle: {
+    fontSize: 22,
+    fontWeight: "800",
+    color: "#1B4332",
+  },
   root: {
     flex: 1,
     backgroundColor: palette.background,
+    paddingTop: 40, // Match CinnOracle's top padding
   },
   content: {
     paddingHorizontal: 18,
     gap: 16,
   },
   title: {
-    fontSize: 28,
-    fontWeight: "800",
-    color: "#1B4332", // Match Home title color exactly
+    display: "none", // Hide the old title since it's now in the header
   },
   subtitle: {
     fontSize: 16,

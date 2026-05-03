@@ -1,8 +1,11 @@
 import React, { useEffect, useState, useCallback } from "react";
 import {
   View, Text, StyleSheet, ScrollView,
-  ActivityIndicator, RefreshControl, Animated
+  ActivityIndicator, RefreshControl, Animated,
+  TouchableOpacity
 } from "react-native";
+import { Ionicons } from "@expo/vector-icons";
+import { useNavigation } from "@react-navigation/native";
 import { getSensorData } from "../../services/api";
 import { SensorData } from "../../types/index";
 import { C, FONTS, SHADOWS } from "../../components/theme";
@@ -78,6 +81,7 @@ function MLBanner({ data }: { data: SensorData }) {
 }
 
 export default function Dashboard() {
+  const navigation = useNavigation();
   const [data, setData]             = useState<SensorData | null>(null);
   const [connected, setConnected]   = useState(false);
   const [loading, setLoading]       = useState(true);
@@ -106,32 +110,59 @@ export default function Dashboard() {
   }, [fetchData]);
 
   if (loading) return (
-    <View style={styles.center}>
-      <ActivityIndicator color={C.spice} size="large" />
-      <Text style={styles.loadingText}>Connecting to dryer...</Text>
-      <Text style={styles.loadingSub}>Reaching your Raspberry Pi</Text>
+    <View style={styles.root}>
+      <View style={styles.header}>
+        <TouchableOpacity onPress={() => navigation.getParent()?.navigate("Home" as never)}>
+          <Ionicons name="arrow-back" size={26} color={C.cream} />
+        </TouchableOpacity>
+        <Text style={styles.headerTitle}>CinnamonDry</Text>
+        <View style={{ width: 26 }} />
+      </View>
+      <View style={styles.center}>
+        <ActivityIndicator color={C.spice} size="large" />
+        <Text style={styles.loadingText}>Connecting to dryer...</Text>
+        <Text style={styles.loadingSub}>Reaching your Raspberry Pi</Text>
+      </View>
     </View>
   );
 
   if (error || !data) return (
-    <View style={styles.center}>
-      <Text style={styles.errorEmoji}>🌿</Text>
-      <Text style={styles.errorTitle}>Cannot Reach Pi</Text>
-      <Text style={styles.errorSub}>Check your IP in api.ts and ensure{"\n"}both devices are on the same WiFi</Text>
-      <RetryButton onPress={() => { setLoading(true); fetchData(); }} />
+    <View style={styles.root}>
+      <View style={styles.header}>
+        <TouchableOpacity onPress={() => navigation.getParent()?.navigate("Home" as never)}>
+          <Ionicons name="arrow-back" size={26} color={C.cream} />
+        </TouchableOpacity>
+        <Text style={styles.headerTitle}>CinnamonDry</Text>
+        <View style={{ width: 26 }} />
+      </View>
+      <View style={styles.center}>
+        <Text style={styles.errorEmoji}>🌿</Text>
+        <Text style={styles.errorTitle}>Cannot Reach Pi</Text>
+        <Text style={styles.errorSub}>Check your IP in api.ts and ensure{"\n"}both devices are on the same WiFi</Text>
+        <RetryButton onPress={() => { setLoading(true); fetchData(); }} />
+      </View>
     </View>
   );
 
   const progressPct = (data.elapsed / (data.elapsed + data.remaining + 0.01)) * 100;
 
   return (
-    <ScrollView
-      style={styles.scroll}
-      refreshControl={
-        <RefreshControl refreshing={refreshing} tintColor={C.spice}
-          onRefresh={() => { setRefreshing(true); fetchData(); }} />
-      }
-    >
+    <View style={styles.root}>
+      <View style={styles.header}>
+        <TouchableOpacity onPress={() => navigation.getParent()?.navigate("Home" as never)}>
+          <Ionicons name="arrow-back" size={26} color={C.cream} />
+        </TouchableOpacity>
+        <Text style={styles.headerTitle}>CinnamonDry</Text>
+        <View style={{ width: 26 }} />
+      </View>
+      <ScrollView
+        style={styles.scroll}
+        contentContainerStyle={styles.scrollContent}
+        refreshControl={
+          <RefreshControl refreshing={refreshing} tintColor={C.spice}
+            onRefresh={() => { setRefreshing(true); fetchData(); }} />
+        }
+      >
       <Animated.View style={{ opacity: fadeAnim }}>
 
         {/* ── Header Status Row ── */}
@@ -241,12 +272,17 @@ export default function Dashboard() {
         </SpiceCard>
 
       </Animated.View>
-    </ScrollView>
+      </ScrollView>
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
-  scroll:          { flex: 1, backgroundColor: C.bg, padding: 16 },
+  root:            { flex: 1, backgroundColor: C.bg, paddingTop: 40 },
+  header:          { flexDirection: "row", alignItems: "center", justifyContent: "space-between", paddingHorizontal: 16, paddingVertical: 12, backgroundColor: C.bg },
+  headerTitle:     { fontSize: 22, fontWeight: "800", color: C.cream, fontFamily: FONTS.display },
+  scroll:          { flex: 1, backgroundColor: C.bg },
+  scrollContent:   { padding: 16, paddingBottom: 32 },
   center:          { flex: 1, backgroundColor: C.bg, justifyContent: "center", alignItems: "center", padding: 32 },
   loadingText:     { color: C.cream, fontSize: 18, fontFamily: FONTS.display, marginTop: 16 },
   loadingSub:      { color: C.muted, fontSize: 12, fontFamily: FONTS.mono, marginTop: 6 },

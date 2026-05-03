@@ -41,8 +41,8 @@ export default function CinnOracleMain() {
 
       {/* Header */}
       <View style={styles.header}>
-        <TouchableOpacity>
-          <Ionicons name="menu" size={26} color="#000000" />
+        <TouchableOpacity onPress={() => navigation.getParent()?.navigate('Home' as any)}>
+          <Ionicons name="arrow-back" size={26} color="#000000" />
         </TouchableOpacity>
         <Text style={styles.title}>CinnOracle</Text>
         <TouchableOpacity>
