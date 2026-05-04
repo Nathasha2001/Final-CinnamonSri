@@ -1,6 +1,6 @@
 import { SensorData, LogEntry, CapturedImage } from "../types/index";
 
-export const API_BASE = "http://172.20.10.2:5000"; // ← Change to your Pi IP
+export const API_BASE = "http://192.168.8.186:8001/drying"; 
 const TIMEOUT = 5000;
 
 async function fetchWithTimeout(url: string): Promise<Response> {

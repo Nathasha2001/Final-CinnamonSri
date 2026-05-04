@@ -7,55 +7,9 @@ import Constants from "expo-constants";
  * - iOS Simulator -> localhost works
  * - Physical device -> use your computer's LAN IP (same Wi‑Fi)
  */
-const DEFAULT_PORT = 8000;
-
-// Set this to your current PC LAN IP when testing on a real phone (same Wi‑Fi).
-// From ipconfig: Wi‑Fi = 192.168.8.186
-const LAN_IP: string | null = "192.168.8.186";
-
-function getBaseUrl() {
-  // Use a developer override if set via Expo extra or env vars.
-  const expoExtra = (
-    (Constants.expoConfig?.extra as { BACKEND_URL?: string } | undefined) ??
-    (Constants.manifest?.extra as { BACKEND_URL?: string } | undefined)
-  );
-  const overrideUrl =
-    expoExtra?.BACKEND_URL || (process.env.BACKEND_URL as string | undefined);
-  if (overrideUrl) {
-    return overrideUrl;
-  }
-
-  if (Platform.OS === "android") {
-    // Android Emulator: host machine localhost is 10.0.2.2
-    // Android Physical device: must use your laptop LAN IP
-    if (Constants.isDevice) {
-      return LAN_IP ? `http://${LAN_IP}:${DEFAULT_PORT}` : `http://localhost:${DEFAULT_PORT}`;
-    }
-    return `http://10.0.2.2:${DEFAULT_PORT}`;
-  }
-
-  if (Platform.OS === "ios") {
-    // iOS simulator: localhost works.
-    // Physical device: use your laptop LAN IP.
-    if (Constants.isDevice) {
-      return LAN_IP ? `http://${LAN_IP}:${DEFAULT_PORT}` : `http://localhost:${DEFAULT_PORT}`;
-    }
-    return `http://localhost:${DEFAULT_PORT}`;
-  }
-
-  if (Platform.OS === "web") {
-    const hostname = typeof window !== "undefined" ? window.location.hostname : "localhost";
-    return `http://${hostname || "localhost"}:${DEFAULT_PORT}`;
-  }
-
-  if (LAN_IP) {
-    return `http://${LAN_IP}:${DEFAULT_PORT}`;
-  }
-
-  return `http://localhost:${DEFAULT_PORT}`;
-}
-
-const BASE_URL = getBaseUrl();
+const LAN_IP = "192.168.8.186";
+const DEFAULT_PORT = 8001;
+const BASE_URL = `http://${LAN_IP}:${DEFAULT_PORT}`;
 
 export type FarmerMoistureMode = "weights" | "moisture_tool";
 

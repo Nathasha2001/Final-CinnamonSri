@@ -5,13 +5,12 @@ import {
 } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
-import { C } from '../screens/CinnDry/src/components/theme';
+import { C } from '../features/drying/src/components/theme';
 
-import HomeScreen from '../screens/Home/HomeScreen';
-import CinnDryNavigator from '../screens/CinnDry/src/screens/CinnDry/index';
-import CinnOracleApp from '../screens/CinnOracle/index';
-import CinnHarvest from '../screens/CinnHarvest/index';
-import CinnGuardApp from '../screens/CinnGuard/index';
+import HomeScreen from '../features/home/HomeScreen';
+import CinnDryNavigator from '../features/drying/src/screens/CinnDry/index';
+import CinnOracleApp from '../features/prediction/index';
+import CinnHarvest from '../features/harvest/index';
 
 const Stack = createNativeStackNavigator();
 
@@ -83,12 +82,6 @@ export default function AppNavigator() {
           options={{ headerShown: false }}
         />
 
-        {/* CinnGuard Module */}
-        <Stack.Screen
-          name="CinnGuard"
-          component={CinnGuardApp}
-          options={{ headerShown: false }}
-        />
 
       </Stack.Navigator>
     </NavigationContainer>

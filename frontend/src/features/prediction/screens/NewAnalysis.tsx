@@ -260,12 +260,11 @@ export default function NewAnalysis() {
       newErrors.dryingDays = 'Drying days must be between 1-14';
     }
 
-    // Validate temperature for all days
-    const hasInvalidTemp = temperatureDays.some(
+    const hasInvalidTemp = temperatureDays.slice(0, dryingDaysNum).some(
       (d) => toNumber(d.morning) <= 0 || toNumber(d.noon) <= 0 || toNumber(d.evening) <= 0,
     );
     if (hasInvalidTemp) {
-      newErrors.temperature = 'Please enter valid temperature for every drying day (0-50°C)';
+      newErrors.temperature = 'Please enter valid temperature for every drying day (1-14 days)';
     }
 
     // Validate user-specific inputs

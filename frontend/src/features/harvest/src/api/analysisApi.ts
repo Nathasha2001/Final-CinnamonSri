@@ -5,7 +5,7 @@ import {
   ThicknessEstimateResponse,
 } from "../types";
 
-const defaultHostedApiUrl = "http://10.137.74.59:5000";
+const defaultHostedApiUrl = "http://192.168.8.186:8001/harvest";
 const requestTimeoutMs = 20000;
 
 export const API_BASE_URL = (

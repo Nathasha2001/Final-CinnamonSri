@@ -10,7 +10,6 @@ type RootStackParamList = {
   CinnDry: undefined;
   CinnOracle: undefined;
   CinnHarvest: undefined;
-  CinnGuard: undefined;
 };
 
 type NavigationProp = NativeStackNavigationProp<RootStackParamList, 'Home'>;
@@ -33,12 +32,6 @@ const MODULES = [
     title: 'CinnHarvest',
     description: 'Harvesting optimization & timing',
     icon: 'leaf',
-  },
-  {
-    id: 'CinnGuard',
-    title: 'CinnGuard',
-    description: 'Disease detection & protection',
-    icon: 'shield-check',
   },
 ] as const;
 
