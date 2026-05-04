@@ -12,7 +12,7 @@ import {
 import { Ionicons, MaterialIcons } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
-import { RootStackParamList } from '../index';
+import { RootStackParamList } from '../App';
 import { getPredictions, deletePrediction, PredictionRecord } from '../src/api/client';
 import AppBottomNav from '../components/AppBottomNav';
 
@@ -20,7 +20,7 @@ type NavigationProp = NativeStackNavigationProp<RootStackParamList>;
 
 const qualityTagColor = (quality?: string | null) => {
   const q = (quality || '').toLowerCase();
-  if (q.includes('high')) return { bg: '#E8F5E9', text: '#D47024' };
+  if (q.includes('high')) return { bg: '#E8F5E9', text: '#2E7D32' };
   if (q.includes('medium')) return { bg: '#FFF3E0', text: '#B26A00' };
   return { bg: '#FFEBEE', text: '#B23A48' };
 };
@@ -74,9 +74,9 @@ export default function HistoricalTrends() {
     const q = search.trim().toLowerCase();
     if (!q) return history;
     return history.filter((item) => {
-      const grade = (item.standard_grade || item.predicted_standard_grade || '').toLowerCase();
+      const grade = (item.predicted_grade || '').toLowerCase();
       const district = (item.district || '').toLowerCase();
-      const date = formatDateTime(item.harvest_date || item.created_at).toLowerCase();
+      const date = formatDateTime(item.timestamp || item.created_at).toLowerCase();
       return grade.includes(q) || district.includes(q) || date.includes(q);
     });
   }, [history, search]);
@@ -84,17 +84,15 @@ export default function HistoricalTrends() {
   const stats = useMemo(() => {
     const totalPredictions = filtered.length;
     const highQualityCount = filtered.filter((item) => {
-      const quality = item.quality_level || mapGradeToQuality(item.standard_grade || item.predicted_standard_grade);
+      const quality = item.quality_level || mapGradeToQuality(item.predicted_grade);
       return quality.toLowerCase().includes('high');
     }).length;
     const totalEstimatedIncome = filtered.reduce((sum, item) => {
-      const qty = Number(item.weight_after || 0);
-      const price = Number(item.estimated_price || 0);
-      return sum + qty * price;
+      return sum + Number(item.estimated_total_income || 0);
     }, 0);
     const avgPrice =
       filtered.length > 0
-        ? filtered.reduce((sum, item) => sum + Number(item.estimated_price || 0), 0) / filtered.length
+        ? filtered.reduce((sum, item) => sum + Number(item.predicted_price_per_kg || 0), 0) / filtered.length
         : 0;
 
     return {
@@ -119,7 +117,7 @@ export default function HistoricalTrends() {
 
       <ScrollView contentContainerStyle={styles.content} showsVerticalScrollIndicator={false}>
         <View style={styles.searchBox}>
-          <Ionicons name="search-outline" size={18} color="#8D7B70" />
+          <Ionicons name="search-outline" size={18} color="#757575" />
           <TextInput
             style={styles.searchInput}
             placeholder="Search by grade, district or date..."
@@ -131,8 +129,8 @@ export default function HistoricalTrends() {
 
         <View style={styles.statsCard}>
           <View style={styles.statItem}>
-            <View style={[styles.statIcon, { backgroundColor: '#FFFFFF' }]}>
-              <MaterialIcons name="description" size={16} color="#D47024" />
+            <View style={[styles.statIcon, { backgroundColor: '#E8F5E9' }]}>
+              <MaterialIcons name="description" size={16} color="#2E7D32" />
             </View>
             <Text style={styles.statValue}>{stats.totalPredictions}</Text>
             <Text style={styles.statLabel}>Total Predictions</Text>
@@ -172,15 +170,15 @@ export default function HistoricalTrends() {
         {!loading &&
           !error &&
           filtered.map((item) => {
-            const quality = item.quality_level || mapGradeToQuality(item.standard_grade || item.predicted_standard_grade);
-            const grade = item.standard_grade || item.predicted_standard_grade || '—';
+            const quality = item.quality_level || mapGradeToQuality(item.predicted_grade);
+            const grade = item.predicted_grade || '—';
             const tag = qualityTagColor(quality);
-            const dateLabel = formatDateTime(item.harvest_date || item.created_at);
-            const quantity = Number((item as any).harvest_quantity_kg || item.weight_after || 0);
-            const price = Number(item.estimated_price || 0);
-            const totalIncome = price * quantity;
-            const userType = (item.user_type || '').toLowerCase() === 'large_scale' ? 'Large Scale' : 'Farmer Level';
-            const batchId = item.batch_id || item._id;
+            const dateLabel = formatDateTime(item.timestamp || item.created_at);
+            const quantity = Number(item.harvest_quantity_kg || 0);
+            const price = Number(item.predicted_price_per_kg || 0);
+            const totalIncome = Number(item.estimated_total_income || 0);
+            const userType = (item.farmer_scale || item.user_type || '').toLowerCase() === 'large_scale' ? 'Large Scale' : 'Farmer Level';
+            const batchId = item.prediction_id || item._id;
 
             return (
               <View key={item._id} style={styles.historyCard}>
@@ -190,44 +188,19 @@ export default function HistoricalTrends() {
                   onPress={() => {
                     navigation.navigate('Report', {
                       batchData: {
-                        batchId,
+                        ...item,
+                        batchId: item.prediction_id || item._id,
                         qualityLevel: quality,
                         standardGrade: grade,
-                        price: item.estimated_price,
-                        district: item.district,
-                        date: item.harvest_date || item.created_at,
-                        harvestQuantityKg: item.harvest_quantity_kg,
-                        estimatedTotalIncome: item.estimated_total_income,
-                        inputs: {
-                          weightBefore: item.weight_before,
-                          weightAfter: item.weight_after,
-                          temperature: item.temperature,
-                          dryingDays: item.drying_days,
-                          cinnamonColor: item.color,
-                          visualMould: item.visual_mould,
-                          moisture: item.moisture_percentage,
-                          moistureMode: item.farmer_moisture_mode,
-                          diameter: item.diameter_mm,
-                          harvestQuantityKg: item.harvest_quantity_kg,
-                          temperatureReadings: item.temperature_readings,
-                        },
-                        calculatedValues: {
-                          estimated_moisture_percentage: item.estimated_moisture_percentage,
-                          avg_temp_8am_c: item.avg_temp_8am_c,
-                          avg_temp_12pm_c: item.avg_temp_12pm_c,
-                          avg_temp_6pm_c: item.avg_temp_6pm_c,
-                          overall_average_temperature_c: item.temperature,
-                        },
-                        markets: item.market_suggestions || undefined,
-                        recommendedMarketplaces: item.market_suggestions?.map((m: any) => m.name) || [],
-                        reason: item.reason || undefined,
+                        price: item.predicted_price_per_kg,
+                        date: item.timestamp || item.created_at,
                       },
                     });
                   }}
                 >
                   <View style={styles.leftCol}>
                     <View style={styles.iconCircle}>
-                      <MaterialIcons name="workspace-premium" size={18} color="#D47024" />
+                      <MaterialIcons name="workspace-premium" size={18} color="#2E7D32" />
                     </View>
                     <View style={{ flex: 1 }}>
                       <View style={styles.topRow}>
@@ -255,37 +228,12 @@ export default function HistoricalTrends() {
                     onPress={() => {
                       navigation.navigate('Report', {
                         batchData: {
-                          batchId,
+                          ...item,
+                          batchId: item.prediction_id || item._id,
                           qualityLevel: quality,
                           standardGrade: grade,
-                          price: item.estimated_price,
-                          district: item.district,
-                          date: item.harvest_date || item.created_at,
-                          harvestQuantityKg: item.harvest_quantity_kg,
-                          estimatedTotalIncome: item.estimated_total_income,
-                          inputs: {
-                            weightBefore: item.weight_before,
-                            weightAfter: item.weight_after,
-                            temperature: item.temperature,
-                            dryingDays: item.drying_days,
-                            cinnamonColor: item.color,
-                            visualMould: item.visual_mould,
-                            moisture: item.moisture_percentage,
-                            moistureMode: item.farmer_moisture_mode,
-                            diameter: item.diameter_mm,
-                            harvestQuantityKg: item.harvest_quantity_kg,
-                            temperatureReadings: item.temperature_readings,
-                          },
-                          calculatedValues: {
-                            estimated_moisture_percentage: item.estimated_moisture_percentage,
-                            avg_temp_8am_c: item.avg_temp_8am_c,
-                            avg_temp_12pm_c: item.avg_temp_12pm_c,
-                            avg_temp_6pm_c: item.avg_temp_6pm_c,
-                            overall_average_temperature_c: item.temperature,
-                          },
-                          markets: item.market_suggestions || undefined,
-                          recommendedMarketplaces: item.market_suggestions?.map((m: any) => m.name) || [],
-                          reason: item.reason || undefined,
+                          price: item.predicted_price_per_kg,
+                          date: item.timestamp || item.created_at,
                         },
                       });
                     }}
@@ -349,7 +297,7 @@ const styles = StyleSheet.create({
     marginBottom: 12,
     height: 48,
   },
-  searchInput: { flex: 1, marginLeft: 8, fontSize: 15, color: '#2B1D16' },
+  searchInput: { flex: 1, marginLeft: 8, fontSize: 15, color: '#1E1E1E' },
   statsCard: {
     backgroundColor: '#FFFFFF',
     borderRadius: 12,
@@ -405,12 +353,12 @@ const styles = StyleSheet.create({
     marginRight: 10,
   },
   topRow: { flexDirection: 'row', alignItems: 'center', marginBottom: 2, gap: 8, flexWrap: 'wrap' },
-  dateText: { fontSize: 11, color: '#8D7B70' },
+  dateText: { fontSize: 11, color: '#757575' },
   qualityTag: { borderRadius: 8, paddingHorizontal: 8, paddingVertical: 2 },
   qualityTagText: { fontSize: 10, fontWeight: '700' },
   gradeText: { fontSize: 23, fontWeight: '800', color: '#1D1D1D' },
   metaText: { fontSize: 14, color: '#5E5E5E', marginTop: 1 },
-  priceText: { fontSize: 16, color: '#2B1D16', fontWeight: '700' },
+  priceText: { fontSize: 16, color: '#1E1E1E', fontWeight: '700' },
   priceUnit: { fontSize: 12, color: '#777' },
   totalIncomeText: { fontSize: 16, color: '#166D3A', fontWeight: '800', marginTop: 2 },
   totalIncomeLabel: { fontSize: 11, color: '#777' },
@@ -427,12 +375,12 @@ const styles = StyleSheet.create({
     minWidth: 64,
   },
   viewBtn: {
-    backgroundColor: '#FFFFFF',
+    backgroundColor: '#E8F5E9',
     borderWidth: 1,
     borderColor: '#CDE8D2',
   },
   viewBtnText: {
-    color: '#D47024',
+    color: '#2E7D32',
     fontSize: 12,
     fontWeight: '700',
   },
@@ -457,8 +405,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#FFFFFF',
   },
   navItem: { alignItems: 'center', justifyContent: 'center', paddingHorizontal: 10, paddingVertical: 6 },
-  navItemActive: { backgroundColor: '#D47024', borderRadius: 12, paddingHorizontal: 20 },
+  navItemActive: { backgroundColor: '#0B5E2D', borderRadius: 12, paddingHorizontal: 20 },
   navLabel: { marginTop: 2, fontSize: 11, color: '#9E9E9E' },
   navLabelActive: { color: '#FFFFFF' },
 });
-
