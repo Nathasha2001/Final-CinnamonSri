@@ -50,28 +50,28 @@ export default function CinnOracleMain() {
         </TouchableOpacity>
       </View>
 
-      <ScrollView 
+      <ScrollView
         contentContainerStyle={styles.scrollContent}
         showsVerticalScrollIndicator={false}
       >
         {/* Check New Batch Button */}
-      <TouchableOpacity
-        style={styles.predictButton}
-        onPress={() => navigation.navigate('NewAnalysis')}
-        activeOpacity={0.85}
-      >
-        <View style={styles.predictTextWrap}>
-          <Text style={styles.predictTitle}>Check New Batch</Text>
-          <Text style={styles.predictSubtitle}>Predict Quality & Get Price</Text>
-        </View>
-        <View style={styles.predictIconWrap}>
+        <TouchableOpacity
+          style={styles.predictButton}
+          onPress={() => navigation.navigate('NewAnalysis')}
+          activeOpacity={0.85}
+        >
+          <View style={styles.predictTextWrap}>
+            <Text style={styles.predictTitle}>Check New Batch</Text>
+            <Text style={styles.predictSubtitle}>Predict Quality & Get Price</Text>
+          </View>
+          <View style={styles.predictIconWrap}>
             <MaterialIcons name="description" size={22} color="#27ae60" />
-        </View>
-      </TouchableOpacity>
+          </View>
+        </TouchableOpacity>
 
         {/* History */}
-        <TouchableOpacity 
-          style={styles.history} 
+        <TouchableOpacity
+          style={styles.history}
           activeOpacity={0.8}
           onPress={() => navigation.navigate('HistoricalTrends')}
         >
@@ -82,10 +82,10 @@ export default function CinnOracleMain() {
         </TouchableOpacity>
 
         {/* Cinnamon Grade Guide Card */}
-        <TouchableOpacity 
-          style={styles.history} 
+        <TouchableOpacity
+          style={styles.history}
           activeOpacity={0.8}
-        onPress={() => navigation.navigate('GradeGuide')}
+          onPress={() => navigation.navigate('GradeGuide')}
         >
           <Text style={styles.historyText}>Cinnamon Grade Guide</Text>
           <View style={styles.historyIconWrap}>
