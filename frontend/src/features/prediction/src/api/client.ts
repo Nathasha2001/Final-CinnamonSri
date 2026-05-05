@@ -6,10 +6,38 @@ import Constants from "expo-constants";
  * - Android Emulator -> use 10.0.2.2 to reach your computer's localhost
  * - iOS Simulator -> localhost works
  * - Physical device -> use your computer's LAN IP (same Wi‑Fi)
+ * 
+ * Configure in .env.local file:
+ * EXPO_PUBLIC_API_HOST=your-ip-or-localhost
+ * EXPO_PUBLIC_API_PORT=8000
  */
-const LAN_IP = "192.168.8.186";
-const DEFAULT_PORT = 8001;
-const BASE_URL = `http://${LAN_IP}:${DEFAULT_PORT}`;
+const API_HOST = process.env.EXPO_PUBLIC_API_HOST || "localhost";
+const API_PORT = process.env.EXPO_PUBLIC_API_PORT || "8000";
+const BASE_URL = `http://${API_HOST}:${API_PORT}`;
+const FETCH_TIMEOUT = 30000; // 30 seconds timeout - increased for network latency
+
+// ===== Timeout Helper =====
+async function fetchWithTimeout(url: string, options?: RequestInit): Promise<Response> {
+  const controller = new AbortController();
+  const timeout = setTimeout(() => controller.abort(), FETCH_TIMEOUT);
+  
+  try {
+    console.log(`[API] Fetching ${url} (timeout: ${FETCH_TIMEOUT}ms)`);
+    const response = await fetch(url, {
+      ...options,
+      signal: controller.signal,
+    });
+    console.log(`[API] Response received: ${response.status} ${response.statusText}`);
+    return response;
+  } catch (error) {
+    if (error instanceof Error && error.name === "AbortError") {
+      console.error(`[API] Request timeout after ${FETCH_TIMEOUT}ms for ${url}`);
+    }
+    throw error;
+  } finally {
+    clearTimeout(timeout);
+  }
+}
 
 export type FarmerMoistureMode = "weights" | "moisture_tool";
 
@@ -46,6 +74,7 @@ export interface CinnOracleCalculatedValues {
 
 export interface CinnOraclePredictResponse {
   predicted_grade: string;
+  farmer_scale: string;
   predicted_price_per_kg: number;
   harvest_quantity_kg: number;
   estimated_total_income: number;
@@ -99,7 +128,7 @@ export interface PricePredictionResponse {
 export interface PredictionRecord {
   _id: string;
   batch_id?: string | null;
-  user_type?: "farmer" | "large_scale" | string;
+  user_type?: "Farmer Level" | "Large Scale" | string;
   farmer_moisture_mode?: "weights" | "moisture_tool" | string | null;
   moisture_percentage?: number | null;
   weight_before: number;
@@ -156,7 +185,7 @@ export interface GradesResponse {
 // ===== Health Check =====
 export async function checkHealth() {
   try {
-    const response = await fetch(`${BASE_URL}/health`);
+    const response = await fetchWithTimeout(`${BASE_URL}/health`);
     if (!response.ok) {
       return false;
     }
@@ -172,7 +201,7 @@ export async function checkHealth() {
 export async function predictCinnOracle(
   input: CinnOraclePredictRequest
 ): Promise<CinnOraclePredictResponse> {
-  const response = await fetch(`${BASE_URL}/predict`, {
+  const response = await fetchWithTimeout(`${BASE_URL}/predict`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(input),
@@ -189,7 +218,7 @@ export async function predictCinnOracle(
 // ===== Price Prediction API =====
 export async function predictPrice(input: PriceInput): Promise<PricePredictionResponse> {
   try {
-    const response = await fetch(`${BASE_URL}/predict-price`, {
+    const response = await fetchWithTimeout(`${BASE_URL}/predict-price`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(input),
@@ -209,7 +238,7 @@ export async function predictPrice(input: PriceInput): Promise<PricePredictionRe
 // ===== Grades Information API =====
 export async function getGrades(): Promise<GradesResponse> {
   try {
-    const response = await fetch(`${BASE_URL}/grades`);
+    const response = await fetchWithTimeout(`${BASE_URL}/grades`);
 
     if (!response.ok) {
       throw new Error(`Failed to fetch grades: ${response.status}`);
@@ -223,30 +252,19 @@ export async function getGrades(): Promise<GradesResponse> {
 }
 
 // ===== Prediction History API =====
-export async function getPredictions(
-  limit: number = 50,
-  skip: number = 0
-): Promise<PredictionHistoryResponse> {
-  try {
-    const response = await fetch(
-      `${BASE_URL}/predictions?limit=${limit}&skip=${skip}`
-    );
+export const getPredictions = async (limit = 100, offset = 0) => {
+  const response = await fetch(`${BASE_URL}/history`);
 
-    if (!response.ok) {
-      throw new Error(`Failed to fetch prediction history: ${response.status}`);
-    }
-
-    return await response.json();
-  } catch (error) {
-    console.error("Prediction history fetch error:", error);
-    throw error;
+  if (!response.ok) {
+    throw new Error(`Failed to fetch prediction history: ${response.status}`);
   }
-}
 
+  return await response.json();
+};
 // ===== Delete Prediction API =====
 export async function deletePrediction(id: string): Promise<void> {
   try {
-    const response = await fetch(`${BASE_URL}/predictions/${id}`, {
+    const response = await fetchWithTimeout(`${BASE_URL}/predictions/${id}`, {
       method: "DELETE",
     });
 
