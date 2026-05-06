@@ -36,9 +36,11 @@ export default function Report() {
   const grade = batchData?.standardGrade || batchData?.quality || 'C5';
   const quality = batchData?.qualityLevel || mapGradeToQuality(grade);
   const district = batchData?.district || 'Galle District';
-  const userType = batchData?.inputs?.moistureMode === 'moisture_tool' ? 'Large Scale' : 'Farmer Level';
-  const pricePerKg = Number(batchData?.price || batchData?.predicted_price_per_kg || 0);
   const harvestQty = Number(batchData?.harvestQuantityKg || batchData?.harvest_quantity_kg || batchData?.inputs?.harvest_quantity_kg || 0);
+  const userType = batchData?.farmer_scale === 'Large Scale' || batchData?.farmer_scale === 'Farmer Level' 
+    ? batchData.farmer_scale 
+    : ((batchData?.farmer_scale || '').toLowerCase().includes('large') || harvestQty >= 500 ? 'Large Scale' : 'Farmer Level');
+  const pricePerKg = Number(batchData?.price || batchData?.predicted_price_per_kg || 0);
   const totalIncome = Number(batchData?.estimatedTotalIncome || batchData?.estimated_total_income || pricePerKg * harvestQty || 0);
   const batchId = batchData?.batchId || `#PRD-${new Date().getFullYear()}-00024`;
   const calculated = batchData?.calculatedValues || batchData?.calculated_values || {};
