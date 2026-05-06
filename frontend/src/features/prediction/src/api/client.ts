@@ -264,7 +264,7 @@ export const getPredictions = async (limit = 100, offset = 0) => {
 // ===== Delete Prediction API =====
 export async function deletePrediction(id: string): Promise<void> {
   try {
-    const response = await fetchWithTimeout(`${BASE_URL}/predictions/${id}`, {
+    const response = await fetchWithTimeout(`${BASE_URL}/history/${id}`, {
       method: "DELETE",
     });
 
