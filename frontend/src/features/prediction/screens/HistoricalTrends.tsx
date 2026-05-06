@@ -177,7 +177,9 @@ export default function HistoricalTrends() {
             const quantity = Number(item.harvest_quantity_kg || 0);
             const price = Number(item.predicted_price_per_kg || 0);
             const totalIncome = Number(item.estimated_total_income || 0);
-            const userType = (item.farmer_scale || item.user_type || '').toLowerCase() === 'large_scale' ? 'Large Scale' : 'Farmer Level';
+            const userType = item.farmer_scale === 'Large Scale' || item.farmer_scale === 'Farmer Level' 
+              ? item.farmer_scale 
+              : ((item.farmer_scale || item.user_type || '').toLowerCase().includes('large') || quantity >= 500 ? 'Large Scale' : 'Farmer Level');
             const batchId = item.prediction_id || item._id;
 
             return (

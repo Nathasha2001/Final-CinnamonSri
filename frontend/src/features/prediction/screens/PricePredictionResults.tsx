@@ -41,6 +41,9 @@ export default function PricePredictionResults() {
   const marketplaces: string[] = Array.isArray(result?.recommendedMarketplaces)
     ? result.recommendedMarketplaces
     : [];
+  const userType = result?.farmer_scale === 'Large Scale' || result?.farmer_scale === 'Farmer Level' 
+    ? result.farmer_scale 
+    : ((result?.farmer_scale || '').toLowerCase().includes('large') || harvestQty >= 500 ? 'Large Scale' : 'Farmer Level');
 
   const calculatedRows = [
     { label: 'Estimated Moisture Percentage', value: calculated?.estimated_moisture_percentage },
@@ -86,7 +89,7 @@ export default function PricePredictionResults() {
           <View style={styles.statCard}>
             <Text style={styles.statLabel}>Harvest Quantity</Text>
             <Text style={styles.statValue}>{harvestQty} kg</Text>
-            <View style={[styles.badge, { backgroundColor: '#FFF8E1' }]}><Text style={[styles.badgeText, { color: '#8D6E63' }]}>From New Analysis</Text></View>
+            <View style={[styles.badge, { backgroundColor: '#FFF8E1' }]}><Text style={[styles.badgeText, { color: '#8D6E63' }]}>{userType}</Text></View>
           </View>
           <View style={styles.statCard}>
             <Text style={styles.statLabel}>Estimated Total Income</Text>
